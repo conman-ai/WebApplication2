@@ -1,0 +1,27 @@
+pipeline{
+    agent any
+    
+    environment {
+        ARTIFACT_DIR = "${JENKINS_HOME}/ARTIFACTS"
+        GIT_URL = 'https://github.com/conman-ai/WebApplication2.git'
+       
+        
+    }
+    stages{
+        
+        stage('Checkout'){
+            steps{
+                git branch: 'master', url: "${GIT_URL}"
+            }
+            
+        }
+        stage('Build'){
+            steps {
+                sh 'dotnet restore'
+                sh 'dotnet publish -o ${ARTIFACT_DIR}/${BUILD_NUMBER}'
+            }
+        }
+        
+        
+    }
+}
