@@ -1,0 +1,36 @@
+pipeline {
+  agent any
+
+  environment{
+    DEPLOY_DIR = "/opt/aspnetapp/deploy"
+    ARTIFACT_DIR = "/opt/aspnetapp/release"
+    
+  }
+
+  stages{
+    stage("check artifact"){
+      steps{
+         sh """
+                #!/bin/bash 
+                exist=$(ls ${ARTIFACT_DIR} | grep -o  ${ARTIFACT_ID} && echo 0 || echo 1)
+
+                if [[ $exist == 1 ]]; then
+                  echo "invalid artifact ID"
+                  return
+                fi
+
+                ln -sfn ${ARTIFACT_DIR}/${ARTIFACT_ID}/* ${DEPLOY_DIR}
+                
+        """
+      }
+     
+    }
+    stage("post"){
+      steps{
+        sh 'sudo systemctl restart dotnet-hello-app'
+      }
+    }
+  }
+
+  
+}
