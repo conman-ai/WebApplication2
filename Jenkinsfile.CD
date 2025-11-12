@@ -19,7 +19,7 @@ pipeline {
                   return
                 fi
 
-                ln -sfn ${ARTIFACT_DIR}/${ARTIFACT_ID}/* ${DEPLOY_DIR}
+                ln -sf ${ARTIFACT_DIR}/${ARTIFACT_ID}/* ${DEPLOY_DIR}
                 
         """
       }
