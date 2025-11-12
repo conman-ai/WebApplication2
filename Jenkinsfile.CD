@@ -12,9 +12,9 @@ pipeline {
       steps{
          sh """
                 #!/bin/bash 
-                exist=$(ls ${ARTIFACT_DIR} | grep -o  ${ARTIFACT_ID} && echo 0 || echo 1)
+                exist= \$(ls ${ARTIFACT_DIR} | grep -o  ${ARTIFACT_ID} && echo 0 || echo 1)
 
-                if [[ $exist == 1 ]]; then
+                if [[ \$exist == 1 ]]; then
                   echo "invalid artifact ID"
                   return
                 fi
