@@ -32,5 +32,16 @@ pipeline {
     }
   }
 
+post{
+  success {
+            mail bcc: '', 
+                 body: "The Jenkins build ${env.JOB_NAME} #${env.BUILD_NUMBER} was successful. View details: ${env.BUILD_URL}", 
+                 cc: '', 
+                 from: '', 
+                 subject: "[SUCCESS] Jenkins Build: ${env.JOB_NAME} #${env.BUILD_NUMBER}", 
+                 to: 'muigma1198@gmail.com'
+        }
+
+}
   
 }
